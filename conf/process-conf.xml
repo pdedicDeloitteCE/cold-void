@@ -1,0 +1,184 @@
+<!DOCTYPE beans
+  PUBLIC '-//SPRING//DTD BEAN//EN'
+  'http://www.springframework.org/dtd/spring-beans.dtd'>
+<beans>
+	<bean class="com.salesforce.dataloader.process.ProcessRunner" id="metaExtract" singleton="false">
+		<description/>
+		<property name="name" value="metaExtract"/>
+		<property name="configOverrideMap">
+			<map>
+				<entry key="process.enableLastRunOutput" value="false"/>
+				<!-- <entry key="sfdc.debugMessages" value="false"/> -->
+				<!-- <entry key="sfdc.debugMessagesFile" value="logs\metaExtract.log"/> -->
+				<!-- <entry key="sfdc.timeoutSecs" value="540"/> -->
+				<!-- <entry key="sfdc.loadBatchSize" value="200"/> -->
+				<entry key="sfdc.entity" value="GBLite__GB_Global_Meta__c"/>
+				<entry key="sfdc.extractionSOQL" value="Select GBLite__Response_Message__c, GBLite__Type__c, GBLite__Grid_Name__c, GBLite__Request_Status__c, GBLite__Controlling_Field__c, GBLite__Object_API_Name__c, GBLite__Object_Dot_Field_Name__c, GBLite__Picklist_Meta__c FROM GBLite__GB_Global_Meta__c WHERE GBLite__Type__c = 'Action'"/>
+				<entry key="process.encryptionKeyFile" value="conf/key.txt"/>
+				<entry key="process.operation" value="extract"/>
+				<entry key="process.mappingFile" value="mapping\GBLite__GB_Global_Meta__c.sdl"/>
+				<entry key="process.outputError" value="logs\metaExtract_error.csv"/>
+				<entry key="process.outputSuccess" value="logs\metaExtract_success.csv"/>
+				<entry key="dataAccess.name" value="data\GBLite__GB_Global_Meta__c.csv"/>
+				<entry key="dataAccess.type" value="csvWrite"/>
+			</map>
+		</property>
+	</bean>
+	<bean class="com.salesforce.dataloader.process.ProcessRunner" id="settingsExtract" singleton="false">
+		<description/>
+		<property name="name" value="settingsExtract"/>
+		<property name="configOverrideMap">
+			<map>
+				<entry key="process.enableLastRunOutput" value="false"/>
+				<!-- <entry key="sfdc.debugMessages" value="false"/> -->
+				<!-- <entry key="sfdc.debugMessagesFile" value="logs\settingsExtract.log"/> -->
+				<!-- <entry key="sfdc.timeoutSecs" value="540"/> -->
+				<!-- <entry key="sfdc.loadBatchSize" value="200"/> -->
+				<entry key="sfdc.entity" value="GBLite__GridBuddySettings__c"/>
+				<entry key="sfdc.extractionSOQL" value="Select GBLite__Definition__c, GBLite__Custom_CSS_File__c, GBLite__Grid_Name__c, GBLite__Custom_JS_File__c, GBLite__Default_Definition__c FROM GBLite__GridBuddySettings__c where GBLite__Default_Definition__c = true"/>
+				<entry key="process.encryptionKeyFile" value="conf/key.txt"/>
+				<entry key="process.operation" value="extract"/>
+				<entry key="process.mappingFile" value="mapping\GBLite__GridBuddySettings__c.sdl"/>
+				<entry key="process.outputError" value="logs\settingsExtract_error.csv"/>
+				<entry key="process.outputSuccess" value="logs\settingsExtract_success.csv"/>
+				<entry key="dataAccess.name" value="data\GBLite__GridBuddySettings__c.csv"/>
+				<entry key="dataAccess.type" value="csvWrite"/>
+			</map>
+		</property>
+	</bean>
+
+	<bean class="com.salesforce.dataloader.process.ProcessRunner" id="metaExtractId" singleton="false">
+		<description/>
+		<property name="name" value="metaExtractId"/>
+		<property name="configOverrideMap">
+			<map>
+				<!-- <entry key="sfdc.timeoutSecs" value="540"/> -->
+				<!-- <entry key="sfdc.loadBatchSize" value="200"/> -->
+				<entry key="process.enableLastRunOutput" value="false"/>
+				<entry key="sfdc.entity" value="GBLite__GB_Global_Meta__c"/>
+				<entry key="sfdc.extractionSOQL" value="Select Id FROM GBLite__GB_Global_Meta__c WHERE GBLite__Type__c = 'Action'"/>
+				<entry key="process.operation" value="extract"/>
+				<entry key="process.outputError" value="logs\metaExtractId_error.csv"/>
+				<entry key="process.outputSuccess" value="logs\metaExtractId_success.csv"/>
+				<entry key="process.encryptionKeyFile" value="conf/key.txt"/>
+				<entry key="dataAccess.name" value="data\metaIds.csv"/>
+				<entry key="dataAccess.type" value="csvWrite"/>
+			</map>
+		</property>
+	</bean>
+	<bean class="com.salesforce.dataloader.process.ProcessRunner" id="settingsExtractId" singleton="false">
+		<description/>
+		<property name="name" value="settingsExtractId"/>
+		<property name="configOverrideMap">
+			<map>
+				<!-- <entry key="sfdc.timeoutSecs" value="540"/> -->
+				<!-- <entry key="sfdc.loadBatchSize" value="200"/> -->
+				<entry key="process.enableLastRunOutput" value="false"/>
+				<entry key="sfdc.entity" value="GBLite__GridBuddySettings__c"/>
+				<entry key="sfdc.extractionSOQL" value="Select Id FROM GBLite__GridBuddySettings__c"/>
+				<entry key="process.operation" value="extract"/>
+				<entry key="process.outputError" value="logs\settingsExtractId_error.csv"/>
+				<entry key="process.outputSuccess" value="logs\settingsExtractId_success.csv"/>
+				<entry key="process.encryptionKeyFile" value="conf/key.txt"/>
+				<entry key="dataAccess.name" value="data\settingsIds.csv"/>
+				<entry key="dataAccess.type" value="csvWrite"/>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="metaDelete"
+		  class="com.salesforce.dataloader.process.ProcessRunner"
+		  singleton="false">
+		<description></description>
+		<property name="name" value="metaDelete"/>
+		<property name="configOverrideMap">
+			<map>
+				<!-- <entry key="sfdc.debugMessages" value="false"/> -->
+				<!-- <entry key="sfdc.debugMessagesFile" value="logs\metaDelete.log"/> -->
+				<!-- <entry key="sfdc.timeoutSecs" value="540"/> -->
+				<!-- <entry key="sfdc.loadBatchSize" value="200"/> -->
+				<entry key="process.enableLastRunOutput" value="false"/>
+				<entry key="sfdc.entity" value="GBLite__GB_Global_Meta__c"/>
+				<entry key="process.operation" value="delete"/>
+				<entry key="process.mappingFile" value="mapping\id.sdl"/>
+				<entry key="process.outputError" value="logs\metaDelete_error.csv"/>
+				<entry key="process.outputSuccess" value="logs\metaDelete_success.csv"/>
+				<entry key="process.encryptionKeyFile" value="conf/key.txt"/>
+				<entry key="dataAccess.name" value="data\metaIds.csv"/>
+				<entry key="dataAccess.type" value="csvRead" /> 
+			</map>
+		</property>
+   </bean>
+   <bean id="settingsDelete"
+		  class="com.salesforce.dataloader.process.ProcessRunner"
+		  singleton="false">
+		<description></description>
+		<property name="name" value="settingsDelete"/>
+		<property name="configOverrideMap">
+			<map>
+				<!-- <entry key="sfdc.debugMessages" value="false"/> -->
+				<!-- <entry key="sfdc.debugMessagesFile" value="logs\settingsDelete.log"/> -->
+				<!-- <entry key="sfdc.timeoutSecs" value="540"/> -->
+				<!-- <entry key="sfdc.loadBatchSize" value="200"/> -->
+				<entry key="process.enableLastRunOutput" value="false"/>
+				<entry key="sfdc.entity" value="GBLite__GridBuddySettings__c"/>
+				<entry key="process.operation" value="delete"/>
+				<entry key="process.mappingFile" value="mapping\id.sdl"/>
+				<entry key="process.outputError" value="logs\settingsDelete_error.csv"/>
+				<entry key="process.outputSuccess" value="logs\settingsDelete_success.csv"/>
+				<entry key="process.encryptionKeyFile" value="conf/key.txt"/>
+				<entry key="dataAccess.name" value="data\settingsIds.csv"/>
+				<entry key="dataAccess.type" value="csvRead" /> 
+			</map>
+		</property>
+   </bean>
+
+	<bean id="metaInsert"
+		  class="com.salesforce.dataloader.process.ProcessRunner"
+		  singleton="false">
+		<description></description>
+		<property name="name" value="metaInsert"/>
+		<property name="configOverrideMap">
+			<map>
+				<!-- <entry key="sfdc.debugMessages" value="false"/> -->
+				<!-- <entry key="sfdc.debugMessagesFile" value="logs\metaInsert.log"/> -->
+				<!-- <entry key="sfdc.timeoutSecs" value="540"/> -->
+				<!-- <entry key="sfdc.loadBatchSize" value="200"/> -->
+				<entry key="process.enableLastRunOutput" value="false"/>
+				<entry key="sfdc.entity" value="GBLite__GB_Global_Meta__c"/>
+				<entry key="process.operation" value="insert"/>
+				<entry key="process.mappingFile" value="mapping\GBLite__GB_Global_Meta__c.sdl"/>
+				<entry key="process.outputError" value="logs\metaInsert_error.csv"/>
+				<entry key="process.outputSuccess" value="logs\metaInsert_success.csv"/>
+				<entry key="process.encryptionKeyFile" value="conf/key.txt"/>
+				<entry key="dataAccess.name" value="data\GBLite__GB_Global_Meta__c.csv"/>
+				<entry key="dataAccess.type" value="csvRead" /> 
+			</map>
+		</property>
+   </bean>
+
+   <bean id="settingsInsert"
+		  class="com.salesforce.dataloader.process.ProcessRunner"
+		  singleton="false">
+		<description></description>
+		<property name="name" value="settingsInsert"/>
+		<property name="configOverrideMap">
+			<map>
+				<!-- <entry key="sfdc.debugMessages" value="false"/> -->
+				<!-- <entry key="sfdc.debugMessagesFile" value="logs\settingsInsert.log"/> -->
+				<!-- <entry key="sfdc.timeoutSecs" value="540"/> -->
+				<!-- <entry key="sfdc.loadBatchSize" value="200"/> -->
+				<entry key="process.enableLastRunOutput" value="false"/>
+				<entry key="sfdc.entity" value="GBLite__GridBuddySettings__c"/>
+				<entry key="process.operation" value="insert"/>
+				<entry key="process.mappingFile" value="mapping\GBLite__GridBuddySettings__c.sdl"/>
+				<entry key="process.outputError" value="logs\settingsInsert_error.csv"/>
+				<entry key="process.outputSuccess" value="logs\settingsInsert_success.csv"/>
+				<entry key="process.encryptionKeyFile" value="conf/key.txt"/>
+				<entry key="dataAccess.name" value="data\GBLite__GridBuddySettings__c.csv"/>
+				<entry key="dataAccess.type" value="csvRead" /> 
+			</map>
+		</property>
+   </bean>
+
+</beans>

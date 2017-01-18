@@ -1,0 +1,7 @@
+#Mapping values
+#Wed Jun 15 16:15:20 CEST 2016
+GBLITE__DEFINITION__C=GBLite__Definition__c
+GBLITE__CUSTOM_CSS_FILE__C=GBLite__Custom_CSS_File__c
+GBLITE__GRID_NAME__C=GBLite__Grid_Name__c
+GBLITE__CUSTOM_JS_FILE__C=GBLite__Custom_JS_File__c
+GBLITE__DEFAULT_DEFINITION__C=GBLite__Default_Definition__c

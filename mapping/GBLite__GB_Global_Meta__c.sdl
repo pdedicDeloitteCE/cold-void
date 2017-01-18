@@ -1,0 +1,10 @@
+#Mapping values
+#Wed Jun 15 16:29:36 CEST 2016
+GBLITE__RESPONSE_MESSAGE__C=GBLite__Response_Message__c
+GBLITE__TYPE__C=GBLite__Type__c
+GBLITE__GRID_NAME__C=GBLite__Grid_Name__c
+GBLITE__REQUEST_STATUS__C=GBLite__Request_Status__c
+GBLITE__CONTROLLING_FIELD__C=GBLite__Controlling_Field__c
+GBLITE__OBJECT_API_NAME__C=GBLite__Object_API_Name__c
+GBLITE__OBJECT_DOT_FIELD_NAME__C=GBLite__Object_Dot_Field_Name__c
+GBLITE__PICKLIST_META__C=GBLite__Picklist_Meta__c
