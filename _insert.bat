@@ -12,7 +12,7 @@ IF "%JAVA_HOME%" == "" (
 
 SET URL=sfdc.endpoint=https://test.salesforce.com
 
-IF %1 neq SIT IF %1 neq UAT2 IF %1 neq DEV2 IF %1 neq DEV1 IF %1 neq CI IF %1 neq BAT2 IF %1 neq PROD IF %1 neq DATAVAL goto end
+IF %1 neq SIT IF %1 neq UAT2 IF %1 neq DEV2 IF %1 neq DEV1 IF %1 neq CI IF %1 neq BAT2 IF %1 neq PROD IF %1 neq DATAVAL IF %1 neq DEVSI goto end
 
 IF %1 == DATAVAL (
   echo "deploying to DATAVAL"
@@ -60,6 +60,12 @@ IF %1 == PROD (
   echo "deploying to PROD"
   SET USR=sfdc.username=peter.dedic@theglobalfund.org.2
   SET PWD=sfdc.password=da36812bb56c4ebe74baf1a408d270ea3c81a0510132a5a3ea50f9a6be9ea18cdec85ad18d4d1d33
+)
+
+IF %1 == DEVSI (
+  echo "deploying to DEVSI"
+  SET USR=sfdc.username=peter.dedic@theglobalfund.org.2.aimdevsi
+  SET PWD=sfdc.password=da36812bb56c4ebe8a1179846b6d322a6177b62dba5b2c8eb6d7e8acb5244fb7e58af71d9dcac1c7
 )
 
 "%JAVA_HOME%"\bin\java -cp "%DATALOADER_HOME%"\dataloader-36.0.0-uber.jar -Dsalesforce.config.dir=conf com.salesforce.dataloader.process.ProcessRunner %URL% %USR% %PWD% process.name=metaExtractId | find /V "INFO"
